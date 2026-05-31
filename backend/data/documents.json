@@ -1,0 +1,152 @@
+[
+  {
+    "id": "doc-001",
+    "application_id": "test-app-001",
+    "doc_type": "Bank Statement",
+    "filename": "bank_statement_001.pdf",
+    "original_filename": "Bank_Statement.pdf",
+    "storage_path": "/data/uploads/bank_statement_001.pdf",
+    "file_size": 1024000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-15T08:00:00.000Z",
+    "extracted_fields": {
+      "total_credits": 1500000,
+      "total_debits": 1050000,
+      "ending_balance": 450000,
+      "statement_period": "3 months",
+      "average_monthly_balance": 400000
+    }
+  },
+  {
+    "id": "doc-002",
+    "application_id": "test-app-001",
+    "doc_type": "Financial Statement",
+    "filename": "financial_statement_001.pdf",
+    "original_filename": "Financial_Statement.pdf",
+    "storage_path": "/data/uploads/financial_statement_001.pdf",
+    "file_size": 2048000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-15T08:00:00.000Z",
+    "extracted_fields": {
+      "total_revenue": 6000000,
+      "total_expenses": 4200000,
+      "net_income": 1800000,
+      "total_assets": 5000000,
+      "total_liabilities": 2000000,
+      "period": "Annual"
+    }
+  },
+  {
+    "id": "doc-003",
+    "application_id": "test-app-001",
+    "doc_type": "ID/KYC",
+    "filename": "id_kyc_001.pdf",
+    "original_filename": "ID_Document.pdf",
+    "storage_path": "/data/uploads/id_kyc_001.pdf",
+    "file_size": 512000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-15T08:00:00.000Z",
+    "extracted_fields": {
+      "id_type": "Government ID",
+      "id_number": "XXXX-XXXX-1234",
+      "name_on_id": "Verified",
+      "expiry_date": "2028-12-31"
+    }
+  },
+  {
+    "id": "doc-004",
+    "application_id": "test-app-001",
+    "doc_type": "Collateral Proof",
+    "filename": "collateral_001.pdf",
+    "original_filename": "Property_Title.pdf",
+    "storage_path": "/data/uploads/collateral_001.pdf",
+    "file_size": 768000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-15T08:00:00.000Z",
+    "extracted_fields": {
+      "property_type": "Real Estate",
+      "assessed_value": 350000,
+      "location": "Metro Manila",
+      "title_number": "TCT-12345"
+    }
+  },
+  {
+    "id": "doc-005",
+    "application_id": "test-app-002",
+    "doc_type": "Bank Statement",
+    "filename": "bank_statement_002.pdf",
+    "original_filename": "Bank_Statement.pdf",
+    "storage_path": "/data/uploads/bank_statement_002.pdf",
+    "file_size": 1024000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-20T08:00:00.000Z",
+    "extracted_fields": {
+      "total_credits": 1200000,
+      "total_debits": 840000,
+      "ending_balance": 360000,
+      "statement_period": "3 months",
+      "average_monthly_balance": 320000
+    }
+  },
+  {
+    "id": "doc-006",
+    "application_id": "test-app-002",
+    "doc_type": "Financial Statement",
+    "filename": "financial_statement_002.pdf",
+    "original_filename": "Financial_Statement.pdf",
+    "storage_path": "/data/uploads/financial_statement_002.pdf",
+    "file_size": 2048000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-20T08:00:00.000Z",
+    "extracted_fields": {
+      "total_revenue": 4800000,
+      "total_expenses": 3360000,
+      "net_income": 1440000,
+      "total_assets": 4000000,
+      "total_liabilities": 1500000,
+      "period": "Annual"
+    }
+  },
+  {
+    "id": "doc-007",
+    "application_id": "test-app-002",
+    "doc_type": "ID/KYC",
+    "filename": "id_kyc_002.pdf",
+    "original_filename": "ID_Document.pdf",
+    "storage_path": "/data/uploads/id_kyc_002.pdf",
+    "file_size": 512000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-20T08:00:00.000Z",
+    "extracted_fields": {
+      "id_type": "Government ID",
+      "id_number": "XXXX-XXXX-5678",
+      "name_on_id": "Verified",
+      "expiry_date": "2029-06-30"
+    }
+  },
+  {
+    "id": "doc-008",
+    "application_id": "test-app-002",
+    "doc_type": "Collateral Proof",
+    "filename": "collateral_002.pdf",
+    "original_filename": "Equipment_Invoice.pdf",
+    "storage_path": "/data/uploads/collateral_002.pdf",
+    "file_size": 768000,
+    "mime_type": "application/pdf",
+    "uploaded_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "uploaded_at": "2026-05-20T08:00:00.000Z",
+    "extracted_fields": {
+      "property_type": "Equipment",
+      "assessed_value": 250000,
+      "location": "Quezon City",
+      "title_number": "INV-67890"
+    }
+  }
+]

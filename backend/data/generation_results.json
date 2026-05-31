@@ -1,0 +1,454 @@
+[
+  {
+    "actor": "Maria Santos",
+    "username": "maria_santos",
+    "generationSuccess": true,
+    "uploadSuccess": true,
+    "documentPaths": {
+      "bankStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/maria_santos_BankStatement.pdf",
+      "financialStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/maria_santos_FinancialStatement.pdf",
+      "idDocument": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/maria_santos_ID_KYC.pdf",
+      "collateralProof": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/maria_santos_CollateralProof.pdf",
+      "businessRegistration": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/maria_santos_BusinessRegistration.pdf",
+      "taxReturn": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/maria_santos_TaxReturn.pdf"
+    },
+    "uploadResults": {
+      "success": true,
+      "message": "Uploaded 6 documents, 0 failed",
+      "totalFiles": 6,
+      "successCount": 6,
+      "failureCount": 0,
+      "documents": {
+        "bankStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/bankStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/maria_santos/bankStatement.pdf",
+          "etag": "\"839c7750af2520c376c24f3cb863f215\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/bankStatement.pdf",
+          "metadata": {
+            "originalName": "maria_santos_BankStatement.pdf",
+            "uploadDate": "2026-05-31T10:03:10.741Z",
+            "actorUsername": "maria_santos",
+            "documentType": "bankStatement",
+            "generatedDate": "2026-05-31T10:03:07.618Z"
+          }
+        },
+        "financialStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/financialStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/maria_santos/financialStatement.pdf",
+          "etag": "\"916238d0966b5610c15cd789183da6bb\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/financialStatement.pdf",
+          "metadata": {
+            "originalName": "maria_santos_FinancialStatement.pdf",
+            "uploadDate": "2026-05-31T10:03:14.271Z",
+            "actorUsername": "maria_santos",
+            "documentType": "financialStatement",
+            "generatedDate": "2026-05-31T10:03:07.618Z"
+          }
+        },
+        "idDocument": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/idDocument.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/maria_santos/idDocument.pdf",
+          "etag": "\"78bb8390a9fcd4a279e389f38332e172\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/idDocument.pdf",
+          "metadata": {
+            "originalName": "maria_santos_ID_KYC.pdf",
+            "uploadDate": "2026-05-31T10:03:17.305Z",
+            "actorUsername": "maria_santos",
+            "documentType": "idDocument",
+            "generatedDate": "2026-05-31T10:03:07.618Z"
+          }
+        },
+        "collateralProof": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/collateralProof.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/maria_santos/collateralProof.pdf",
+          "etag": "\"17c20785aaa297b725fd27e1ad2082b4\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/collateralProof.pdf",
+          "metadata": {
+            "originalName": "maria_santos_CollateralProof.pdf",
+            "uploadDate": "2026-05-31T10:03:20.707Z",
+            "actorUsername": "maria_santos",
+            "documentType": "collateralProof",
+            "generatedDate": "2026-05-31T10:03:07.618Z"
+          }
+        },
+        "businessRegistration": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/businessRegistration.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/maria_santos/businessRegistration.pdf",
+          "etag": "\"18b2dcbaf42ce2bc43a8f7f80ef2006f\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/businessRegistration.pdf",
+          "metadata": {
+            "originalName": "maria_santos_BusinessRegistration.pdf",
+            "uploadDate": "2026-05-31T10:03:24.111Z",
+            "actorUsername": "maria_santos",
+            "documentType": "businessRegistration",
+            "generatedDate": "2026-05-31T10:03:07.618Z"
+          }
+        },
+        "taxReturn": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/taxReturn.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/maria_santos/taxReturn.pdf",
+          "etag": "\"56203e29fd3c7b8751b0da84efce9bed\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/maria_santos/taxReturn.pdf",
+          "metadata": {
+            "originalName": "maria_santos_TaxReturn.pdf",
+            "uploadDate": "2026-05-31T10:03:27.455Z",
+            "actorUsername": "maria_santos",
+            "documentType": "taxReturn",
+            "generatedDate": "2026-05-31T10:03:07.618Z"
+          }
+        }
+      }
+    }
+  },
+  {
+    "actor": "Juan Dela Cruz",
+    "username": "juan_delacruz",
+    "generationSuccess": true,
+    "uploadSuccess": true,
+    "documentPaths": {
+      "bankStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/juan_delacruz_BankStatement.pdf",
+      "financialStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/juan_delacruz_FinancialStatement.pdf",
+      "idDocument": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/juan_delacruz_ID_KYC.pdf",
+      "collateralProof": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/juan_delacruz_CollateralProof.pdf",
+      "businessRegistration": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/juan_delacruz_BusinessRegistration.pdf",
+      "taxReturn": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/juan_delacruz_TaxReturn.pdf"
+    },
+    "uploadResults": {
+      "success": true,
+      "message": "Uploaded 6 documents, 0 failed",
+      "totalFiles": 6,
+      "successCount": 6,
+      "failureCount": 0,
+      "documents": {
+        "bankStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/bankStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/juan_delacruz/bankStatement.pdf",
+          "etag": "\"edfabca1d897818111e9d38e7b060065\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/bankStatement.pdf",
+          "metadata": {
+            "originalName": "juan_delacruz_BankStatement.pdf",
+            "uploadDate": "2026-05-31T10:03:30.895Z",
+            "actorUsername": "juan_delacruz",
+            "documentType": "bankStatement",
+            "generatedDate": "2026-05-31T10:03:29.108Z"
+          }
+        },
+        "financialStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/financialStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/juan_delacruz/financialStatement.pdf",
+          "etag": "\"d864a6b02258c0fac79c64e336679036\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/financialStatement.pdf",
+          "metadata": {
+            "originalName": "juan_delacruz_FinancialStatement.pdf",
+            "uploadDate": "2026-05-31T10:03:34.170Z",
+            "actorUsername": "juan_delacruz",
+            "documentType": "financialStatement",
+            "generatedDate": "2026-05-31T10:03:29.108Z"
+          }
+        },
+        "idDocument": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/idDocument.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/juan_delacruz/idDocument.pdf",
+          "etag": "\"6ffa0fafdb17b7fc8b06edbe298455e0\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/idDocument.pdf",
+          "metadata": {
+            "originalName": "juan_delacruz_ID_KYC.pdf",
+            "uploadDate": "2026-05-31T10:03:37.381Z",
+            "actorUsername": "juan_delacruz",
+            "documentType": "idDocument",
+            "generatedDate": "2026-05-31T10:03:29.108Z"
+          }
+        },
+        "collateralProof": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/collateralProof.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/juan_delacruz/collateralProof.pdf",
+          "etag": "\"6f66db5bcde8d69581556c686cf1ac00\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/collateralProof.pdf",
+          "metadata": {
+            "originalName": "juan_delacruz_CollateralProof.pdf",
+            "uploadDate": "2026-05-31T10:03:40.471Z",
+            "actorUsername": "juan_delacruz",
+            "documentType": "collateralProof",
+            "generatedDate": "2026-05-31T10:03:29.108Z"
+          }
+        },
+        "businessRegistration": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/businessRegistration.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/juan_delacruz/businessRegistration.pdf",
+          "etag": "\"18a2b4b70a1834b29a0fa91ad2c535fb\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/businessRegistration.pdf",
+          "metadata": {
+            "originalName": "juan_delacruz_BusinessRegistration.pdf",
+            "uploadDate": "2026-05-31T10:03:44.149Z",
+            "actorUsername": "juan_delacruz",
+            "documentType": "businessRegistration",
+            "generatedDate": "2026-05-31T10:03:29.108Z"
+          }
+        },
+        "taxReturn": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/taxReturn.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/juan_delacruz/taxReturn.pdf",
+          "etag": "\"f8e794b74b23d9f54093bf2aa5bd1efb\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/juan_delacruz/taxReturn.pdf",
+          "metadata": {
+            "originalName": "juan_delacruz_TaxReturn.pdf",
+            "uploadDate": "2026-05-31T10:03:47.812Z",
+            "actorUsername": "juan_delacruz",
+            "documentType": "taxReturn",
+            "generatedDate": "2026-05-31T10:03:29.108Z"
+          }
+        }
+      }
+    }
+  },
+  {
+    "actor": "Ana Reyes",
+    "username": "ana_reyes",
+    "generationSuccess": true,
+    "uploadSuccess": true,
+    "documentPaths": {
+      "bankStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/ana_reyes_BankStatement.pdf",
+      "financialStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/ana_reyes_FinancialStatement.pdf",
+      "idDocument": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/ana_reyes_ID_KYC.pdf",
+      "collateralProof": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/ana_reyes_CollateralProof.pdf",
+      "businessRegistration": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/ana_reyes_BusinessRegistration.pdf",
+      "taxReturn": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/ana_reyes_TaxReturn.pdf"
+    },
+    "uploadResults": {
+      "success": true,
+      "message": "Uploaded 6 documents, 0 failed",
+      "totalFiles": 6,
+      "successCount": 6,
+      "failureCount": 0,
+      "documents": {
+        "bankStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/bankStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/ana_reyes/bankStatement.pdf",
+          "etag": "\"537db3a9ec52f3c814a65f89a0ff853a\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/bankStatement.pdf",
+          "metadata": {
+            "originalName": "ana_reyes_BankStatement.pdf",
+            "uploadDate": "2026-05-31T10:03:51.713Z",
+            "actorUsername": "ana_reyes",
+            "documentType": "bankStatement",
+            "generatedDate": "2026-05-31T10:03:50.216Z"
+          }
+        },
+        "financialStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/financialStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/ana_reyes/financialStatement.pdf",
+          "etag": "\"c7c32697d00e0ea78dd022bdf6ddcf6f\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/financialStatement.pdf",
+          "metadata": {
+            "originalName": "ana_reyes_FinancialStatement.pdf",
+            "uploadDate": "2026-05-31T10:03:55.243Z",
+            "actorUsername": "ana_reyes",
+            "documentType": "financialStatement",
+            "generatedDate": "2026-05-31T10:03:50.216Z"
+          }
+        },
+        "idDocument": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/idDocument.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/ana_reyes/idDocument.pdf",
+          "etag": "\"2b0b47b40fa9e8efa513ae249d80aa36\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/idDocument.pdf",
+          "metadata": {
+            "originalName": "ana_reyes_ID_KYC.pdf",
+            "uploadDate": "2026-05-31T10:03:59.055Z",
+            "actorUsername": "ana_reyes",
+            "documentType": "idDocument",
+            "generatedDate": "2026-05-31T10:03:50.216Z"
+          }
+        },
+        "collateralProof": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/collateralProof.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/ana_reyes/collateralProof.pdf",
+          "etag": "\"22f5c220ca3d39a4293feab8a951b1db\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/collateralProof.pdf",
+          "metadata": {
+            "originalName": "ana_reyes_CollateralProof.pdf",
+            "uploadDate": "2026-05-31T10:04:02.255Z",
+            "actorUsername": "ana_reyes",
+            "documentType": "collateralProof",
+            "generatedDate": "2026-05-31T10:03:50.216Z"
+          }
+        },
+        "businessRegistration": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/businessRegistration.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/ana_reyes/businessRegistration.pdf",
+          "etag": "\"84c13762aa01a9a4e20839fb1cd53082\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/businessRegistration.pdf",
+          "metadata": {
+            "originalName": "ana_reyes_BusinessRegistration.pdf",
+            "uploadDate": "2026-05-31T10:04:05.799Z",
+            "actorUsername": "ana_reyes",
+            "documentType": "businessRegistration",
+            "generatedDate": "2026-05-31T10:03:50.216Z"
+          }
+        },
+        "taxReturn": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/taxReturn.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/ana_reyes/taxReturn.pdf",
+          "etag": "\"91b3dd3aca8a3d5f5b4d23d0eaca96fd\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/ana_reyes/taxReturn.pdf",
+          "metadata": {
+            "originalName": "ana_reyes_TaxReturn.pdf",
+            "uploadDate": "2026-05-31T10:04:08.856Z",
+            "actorUsername": "ana_reyes",
+            "documentType": "taxReturn",
+            "generatedDate": "2026-05-31T10:03:50.216Z"
+          }
+        }
+      }
+    }
+  },
+  {
+    "actor": "System Admin",
+    "username": "admin",
+    "generationSuccess": true,
+    "uploadSuccess": true,
+    "documentPaths": {
+      "bankStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/admin_BankStatement.pdf",
+      "financialStatement": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/admin_FinancialStatement.pdf",
+      "idDocument": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/admin_ID_KYC.pdf",
+      "collateralProof": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/admin_CollateralProof.pdf",
+      "businessRegistration": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/admin_BusinessRegistration.pdf",
+      "taxReturn": "/Users/robi/Documents/GitHub/losbobdemo_v2/backend/data/generated_documents/admin_TaxReturn.pdf"
+    },
+    "uploadResults": {
+      "success": true,
+      "message": "Uploaded 6 documents, 0 failed",
+      "totalFiles": 6,
+      "successCount": 6,
+      "failureCount": 0,
+      "documents": {
+        "bankStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/bankStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/admin/bankStatement.pdf",
+          "etag": "\"673e33e7cc492e9955e14189134bda8a\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/bankStatement.pdf",
+          "metadata": {
+            "originalName": "admin_BankStatement.pdf",
+            "uploadDate": "2026-05-31T10:04:12.713Z",
+            "actorUsername": "admin",
+            "documentType": "bankStatement",
+            "generatedDate": "2026-05-31T10:04:10.509Z"
+          }
+        },
+        "financialStatement": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/financialStatement.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/admin/financialStatement.pdf",
+          "etag": "\"deab99744e31592ef8c240c32c4e4ba2\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/financialStatement.pdf",
+          "metadata": {
+            "originalName": "admin_FinancialStatement.pdf",
+            "uploadDate": "2026-05-31T10:04:16.368Z",
+            "actorUsername": "admin",
+            "documentType": "financialStatement",
+            "generatedDate": "2026-05-31T10:04:10.509Z"
+          }
+        },
+        "idDocument": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/idDocument.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/admin/idDocument.pdf",
+          "etag": "\"94535223a3fb11460b6998dc007a2761\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/idDocument.pdf",
+          "metadata": {
+            "originalName": "admin_ID_KYC.pdf",
+            "uploadDate": "2026-05-31T10:04:19.876Z",
+            "actorUsername": "admin",
+            "documentType": "idDocument",
+            "generatedDate": "2026-05-31T10:04:10.509Z"
+          }
+        },
+        "collateralProof": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/collateralProof.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/admin/collateralProof.pdf",
+          "etag": "\"53b6eb19f63357573c27f7b222ed8122\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/collateralProof.pdf",
+          "metadata": {
+            "originalName": "admin_CollateralProof.pdf",
+            "uploadDate": "2026-05-31T10:04:23.711Z",
+            "actorUsername": "admin",
+            "documentType": "collateralProof",
+            "generatedDate": "2026-05-31T10:04:10.509Z"
+          }
+        },
+        "businessRegistration": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/businessRegistration.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/admin/businessRegistration.pdf",
+          "etag": "\"f5433efc433754676c48fbaee5442859\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/businessRegistration.pdf",
+          "metadata": {
+            "originalName": "admin_BusinessRegistration.pdf",
+            "uploadDate": "2026-05-31T10:04:27.770Z",
+            "actorUsername": "admin",
+            "documentType": "businessRegistration",
+            "generatedDate": "2026-05-31T10:04:10.509Z"
+          }
+        },
+        "taxReturn": {
+          "success": true,
+          "location": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/taxReturn.pdf",
+          "bucket": "boblosdemo-donotdelete-pr-3xmxo8o563rnxo",
+          "key": "actors/admin/taxReturn.pdf",
+          "etag": "\"6871fcc8fa026bf456ac67776cd3b018\"",
+          "url": "https://boblosdemo-donotdelete-pr-3xmxo8o563rnxo.s3.us-south.cloud-object-storage.appdomain.cloud/actors/admin/taxReturn.pdf",
+          "metadata": {
+            "originalName": "admin_TaxReturn.pdf",
+            "uploadDate": "2026-05-31T10:04:31.209Z",
+            "actorUsername": "admin",
+            "documentType": "taxReturn",
+            "generatedDate": "2026-05-31T10:04:10.509Z"
+          }
+        }
+      }
+    }
+  }
+]

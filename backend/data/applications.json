@@ -1,0 +1,110 @@
+[
+  {
+    "id": "test-app-001",
+    "application_number": "APP-2026-TEST-001",
+    "status": "In Review",
+    "owner_user_id": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "applicant": {
+      "legal_name": "Quick Test Corp",
+      "business_type": "Corporation",
+      "industry": "Retail Trade",
+      "years_in_business": 5
+    },
+    "loan_request": {
+      "amount": 250000,
+      "tenor_months": 24,
+      "purpose": "Working Capital",
+      "repayment_type": "Monthly"
+    },
+    "financial_snapshot": {
+      "monthly_revenue": 500000,
+      "monthly_expenses": 350000,
+      "existing_debt_payment": 20000
+    },
+    "collateral": {
+      "type": "Real Estate",
+      "estimated_value": 350000
+    },
+    "owner_info": {
+      "name": "John Doe",
+      "id_number": "ID-123456",
+      "credit_score": 720
+    },
+    "created_at": "2026-05-01T08:00:00.000Z",
+    "updated_at": "2026-05-31T08:52:29.892Z",
+    "submitted_at": "2026-05-15T08:00:00.000Z",
+    "completed_at": null
+  },
+  {
+    "id": "test-app-002",
+    "application_number": "APP-2026-TEST-002",
+    "status": "In Review",
+    "owner_user_id": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "applicant": {
+      "legal_name": "Fast Review Inc",
+      "business_type": "Corporation",
+      "industry": "Manufacturing",
+      "years_in_business": 8
+    },
+    "loan_request": {
+      "amount": 180000,
+      "tenor_months": 36,
+      "purpose": "Equipment Purchase",
+      "repayment_type": "Monthly"
+    },
+    "financial_snapshot": {
+      "monthly_revenue": 400000,
+      "monthly_expenses": 280000,
+      "existing_debt_payment": 15000
+    },
+    "collateral": {
+      "type": "Equipment",
+      "estimated_value": 250000
+    },
+    "owner_info": {
+      "name": "Jane Smith",
+      "id_number": "ID-789012",
+      "credit_score": 680
+    },
+    "created_at": "2026-05-10T08:00:00.000Z",
+    "updated_at": "2026-05-31T08:52:39.922Z",
+    "submitted_at": "2026-05-20T08:00:00.000Z",
+    "completed_at": null
+  },
+  {
+    "id": "test-app-003",
+    "application_number": "APP-2026-TEST-003",
+    "status": "Draft",
+    "owner_user_id": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "applicant": {
+      "legal_name": "Sample Business Ltd",
+      "business_type": "Partnership",
+      "industry": "Services",
+      "years_in_business": 3
+    },
+    "loan_request": {
+      "amount": 150000,
+      "tenor_months": 18,
+      "purpose": "Working Capital",
+      "repayment_type": "Bullet"
+    },
+    "financial_snapshot": {
+      "monthly_revenue": 300000,
+      "monthly_expenses": 220000,
+      "existing_debt_payment": 10000
+    },
+    "collateral": {
+      "type": "Vehicle",
+      "estimated_value": 200000
+    },
+    "owner_info": {
+      "name": "Bob Johnson",
+      "id_number": "ID-345678",
+      "credit_score": 640
+    },
+    "created_at": "2026-05-25T08:00:00.000Z",
+    "updated_at": "2026-05-28T08:00:00.000Z",
+    "submitted_at": null,
+    "completed_at": null
+  }
+]

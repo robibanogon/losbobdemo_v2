@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: los-backend
+  labels:
+    app: los-backend
+    app.kubernetes.io/name: los-backend
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: loan-origination-system
+spec:
+  ports:
+  - name: 3001-tcp
+    port: 3001
+    protocol: TCP
+    targetPort: 3001
+  selector:
+    app: los-backend
+    deployment: los-backend
+  type: ClusterIP
+  sessionAffinity: None
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: los-frontend
+  labels:
+    app: los-frontend
+    app.kubernetes.io/name: los-frontend
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: loan-origination-system
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: los-frontend
+    deployment: los-frontend
+  type: ClusterIP
+  sessionAffinity: None
+
+# Made with Bob

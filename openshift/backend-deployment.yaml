@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: los-backend
+  labels:
+    app: los-backend
+    app.kubernetes.io/name: los-backend
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: loan-origination-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: los-backend
+  template:
+    metadata:
+      labels:
+        app: los-backend
+        deployment: los-backend
+    spec:
+      containers:
+      - name: los-backend
+        image: image-registry.openshift-image-registry.svc:5000/los-demo-v1/los-backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3001
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "3001"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: los-secrets
+              key: jwt-secret
+        - name: WATSONX_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: los-secrets
+              key: watsonx-api-key
+        - name: WATSONX_PROJECT_ID
+          valueFrom:
+            secretKeyRef:
+              name: los-secrets
+              key: watsonx-project-id
+        - name: WATSONX_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: los-config
+              key: watsonx-api-url
+        - name: WATSONX_DEFAULT_MODEL
+          valueFrom:
+            configMapKeyRef:
+              name: los-config
+              key: watsonx-default-model
+        - name: IBM_COS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: los-secrets
+              key: ibm-cos-api-key
+              optional: true
+        - name: IBM_COS_INSTANCE_ID
+          valueFrom:
+            secretKeyRef:
+              name: los-secrets
+              key: ibm-cos-instance-id
+              optional: true
+        - name: IBM_COS_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: los-config
+              key: ibm-cos-endpoint
+              optional: true
+        - name: IBM_COS_BUCKET_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: los-config
+              key: ibm-cos-bucket-name
+              optional: true
+        - name: DATA_DIR
+          value: "/opt/app-root/src/data"
+        - name: UPLOAD_DIR
+          value: "/opt/app-root/src/data/uploads"
+        volumeMounts:
+        - name: data-storage
+          mountPath: /opt/app-root/src/data
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: data-storage
+        persistentVolumeClaim:
+          claimName: los-data-pvc
+
+# Made with Bob

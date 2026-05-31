@@ -1,0 +1,45 @@
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: los-frontend
+  labels:
+    app: los-frontend
+    app.kubernetes.io/name: los-frontend
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: loan-origination-system
+spec:
+  to:
+    kind: Service
+    name: los-frontend
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: los-backend
+  labels:
+    app: los-backend
+    app.kubernetes.io/name: los-backend
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: loan-origination-system
+spec:
+  to:
+    kind: Service
+    name: los-backend
+    weight: 100
+  port:
+    targetPort: 3001-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+
+# Made with Bob

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: los-data-pvc
+  labels:
+    app.kubernetes.io/part-of: loan-origination-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ocs-storagecluster-ceph-rbd
+---
+# Alternative storage classes for different OpenShift environments:
+# - gp2: AWS EBS General Purpose SSD (default for AWS)
+# - gp3: AWS EBS General Purpose SSD v3 (newer, better performance)
+# - standard: Standard storage (varies by provider)
+# - ocs-storagecluster-ceph-rbd: OpenShift Container Storage
+# - managed-premium: Azure Premium SSD
+# - pd-standard: Google Persistent Disk Standard
+# - pd-ssd: Google Persistent Disk SSD
+#
+# To check available storage classes in your cluster:
+# oc get storageclass
+
+# Made with Bob

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "analysis-001",
+    "application_id": "test-app-001",
+    "dscr": 2.5,
+    "net_cashflow": 150000,
+    "collateral_coverage": 140,
+    "risk_score": 85,
+    "flags": [],
+    "assumptions": {
+      "interest_rate": 0,
+      "default_rate": 2,
+      "recovery_rate": 70
+    },
+    "notes": "Good financial position",
+    "created_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "created_at": "2026-05-15T08:00:00.000Z",
+    "updated_at": "2026-05-15T08:00:00.000Z"
+  },
+  {
+    "id": "analysis-002",
+    "application_id": "test-app-002",
+    "dscr": 1.8,
+    "net_cashflow": 120000,
+    "collateral_coverage": 138.89,
+    "risk_score": 78,
+    "flags": [
+      {
+        "type": "LOW_CREDIT_SCORE",
+        "severity": "Medium",
+        "message": "Credit score of 680 is close to minimum threshold"
+      }
+    ],
+    "assumptions": {
+      "interest_rate": 0,
+      "default_rate": 2,
+      "recovery_rate": 70
+    },
+    "notes": "Acceptable risk profile",
+    "created_by": "bb0e97b6-434e-4620-a002-790e8de8893c",
+    "created_at": "2026-05-20T08:00:00.000Z",
+    "updated_at": "2026-05-20T08:00:00.000Z"
+  }
+]

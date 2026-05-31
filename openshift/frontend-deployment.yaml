@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: los-frontend
+  labels:
+    app: los-frontend
+    app.kubernetes.io/name: los-frontend
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: loan-origination-system
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: los-frontend
+  template:
+    metadata:
+      labels:
+        app: los-frontend
+        deployment: los-frontend
+    spec:
+      containers:
+      - name: los-frontend
+        image: image-registry.openshift-image-registry.svc:5000/los-demo-v1/los-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: VITE_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: los-config
+              key: api-url
+        - name: VITE_APP_NAME
+          value: "Loan Origination System"
+        - name: VITE_APP_VERSION
+          value: "1.0.0"
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+# Made with Bob
