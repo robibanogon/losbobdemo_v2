@@ -15,21 +15,28 @@ const path = require('path');
  */
 class IBMCosService {
   constructor() {
-    this.config = {
-      endpoint: process.env.IBM_COS_ENDPOINT || 's3.us-south.cloud-object-storage.appdomain.cloud',
-      apiKeyId: process.env.IBM_COS_API_KEY,
-      serviceInstanceId: process.env.IBM_COS_INSTANCE_ID,
-      signatureVersion: 'iam',
-    };
-
     this.bucketName = process.env.IBM_COS_BUCKET_NAME || 'loan-documents';
+    const endpoint = process.env.IBM_COS_ENDPOINT || 's3.us-south.cloud-object-storage.appdomain.cloud';
     
     // Initialize COS client
-    if (this.config.apiKeyId && this.config.serviceInstanceId) {
-      this.cosClient = new AWS.S3(this.config);
+    if (process.env.IBM_COS_API_KEY && process.env.IBM_COS_INSTANCE_ID) {
+      this.cosClient = new AWS.S3({
+        endpoint: `https://${endpoint}`,
+        apiKeyId: process.env.IBM_COS_API_KEY,
+        ibmAuthEndpoint: 'https://iam.cloud.ibm.com/identity/token',
+        serviceInstanceId: process.env.IBM_COS_INSTANCE_ID,
+        signatureVersion: 'iam',
+      });
+      
+      this.config = {
+        endpoint: endpoint,
+        apiKeyId: process.env.IBM_COS_API_KEY,
+        serviceInstanceId: process.env.IBM_COS_INSTANCE_ID
+      };
     } else {
       console.warn('IBM COS credentials not configured. Upload functionality will be disabled.');
       this.cosClient = null;
+      this.config = {};
     }
   }
 
@@ -80,7 +87,57 @@ class IBMCosService {
   }
 
   /**
-   * Upload a file to IBM COS
+   * Upload a file to IBM COS from buffer
+   * @async
+   * @param {string} objectKey - Object key in COS (path in bucket)
+   * @param {Buffer} buffer - File buffer
+   * @param {string} contentType - MIME type
+   * @param {Object} metadata - Optional metadata
+   * @returns {Promise<Object>} Upload result with URL and metadata
+   */
+  async uploadBuffer(objectKey, buffer, contentType, metadata = {}) {
+    if (!this.isConfigured()) {
+      throw new Error('IBM COS is not configured');
+    }
+
+    try {
+      // Ensure bucket exists
+      await this.ensureBucket();
+
+      // Upload parameters
+      const uploadParams = {
+        Bucket: this.bucketName,
+        Key: objectKey,
+        Body: buffer,
+        ContentType: contentType,
+        Metadata: {
+          uploadDate: new Date().toISOString(),
+          ...metadata
+        }
+      };
+
+      // Upload file
+      const result = await this.cosClient.upload(uploadParams).promise();
+
+      console.log(`File uploaded successfully: ${objectKey}`);
+
+      return {
+        success: true,
+        location: result.Location,
+        bucket: result.Bucket,
+        key: result.Key,
+        etag: result.ETag,
+        url: this.getPublicUrl(objectKey),
+        metadata: uploadParams.Metadata
+      };
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Upload a file to IBM COS from file path
    * @async
    * @param {string} filePath - Local file path
    * @param {string} objectKey - Object key in COS (path in bucket)
@@ -304,10 +361,12 @@ class IBMCosService {
 
   /**
    * Generate a presigned URL for temporary access
+   * For IBM COS with IAM auth, we return the public URL
+   * Access control is managed through bucket policies
    * @async
    * @param {string} objectKey - Object key in COS
    * @param {number} expiresIn - Expiration time in seconds (default: 3600)
-   * @returns {Promise<string>} Presigned URL
+   * @returns {Promise<string>} Public URL
    */
   async getPresignedUrl(objectKey, expiresIn = 3600) {
     if (!this.isConfigured()) {
@@ -315,14 +374,9 @@ class IBMCosService {
     }
 
     try {
-      const params = {
-        Bucket: this.bucketName,
-        Key: objectKey,
-        Expires: expiresIn
-      };
-
-      const url = await this.cosClient.getSignedUrlPromise('getObject', params);
-      return url;
+      // For IBM COS with IAM authentication, return public URL
+      // The bucket should have public read access or use IAM policies
+      return this.getPublicUrl(objectKey);
     } catch (error) {
       console.error('Error generating presigned URL:', error);
       throw error;

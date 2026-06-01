@@ -390,19 +390,19 @@ const DocumentUpload = () => {
                     <td style={{ padding: '12px', textAlign: 'center' }}>
                       <button
                         onClick={() => handleView(doc.id, doc.original_filename)}
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-outline btn-sm"
                         style={{ padding: '4px 12px', fontSize: '14px', marginRight: '8px' }}
                         title="View document in new tab"
                       >
-                        👁️ View
+                        View
                       </button>
                       <button
                         onClick={() => handleDownload(doc.id, doc.original_filename)}
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-outline btn-sm"
                         style={{ padding: '4px 12px', fontSize: '14px', marginRight: '8px' }}
                         title="Download document"
                       >
-                        ⬇️ Download
+                        Download
                       </button>
                       {canDelete && (
                         <button
@@ -411,7 +411,7 @@ const DocumentUpload = () => {
                           style={{ padding: '4px 12px', fontSize: '14px' }}
                           title="Delete document"
                         >
-                          🗑️ Delete
+                          Delete
                         </button>
                       )}
                     </td>

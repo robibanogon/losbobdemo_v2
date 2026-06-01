@@ -8,6 +8,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const documentService = require('../services/documentService');
+const ibmCosService = require('../services/ibmCosService');
 const { authenticate } = require('../middleware/auth');
 
 /**
@@ -31,13 +32,51 @@ router.get('/:id', authenticate, async (req, res) => {
  * @route GET /api/documents/:id/download
  * @access Private
  * @param {string} id - Document ID (URL param)
- * @returns {File} Document file download
+ * @returns {File} Document file download or presigned URL
  */
 router.get('/:id/download', authenticate, async (req, res) => {
   try {
     const document = await documentService.getById(req.params.id);
-    res.download(document.storage_path, document.original_filename);
+    
+    // Check if document has COS key (stored in IBM COS)
+    if (document.cos_key && ibmCosService.isConfigured()) {
+      // Stream file from COS
+      try {
+        const params = {
+          Bucket: ibmCosService.bucketName,
+          Key: document.cos_key
+        };
+        
+        const cosObject = await ibmCosService.cosClient.getObject(params).promise();
+        
+        // Set headers for file download
+        res.setHeader('Content-Type', document.mime_type || 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${document.original_filename}"`);
+        res.setHeader('Content-Length', cosObject.ContentLength);
+        
+        // Send file content
+        res.send(cosObject.Body);
+      } catch (cosError) {
+        console.error('COS download error:', cosError);
+        res.status(500).json({
+          error: 'Failed to download from Cloud Object Storage',
+          message: cosError.message
+        });
+      }
+    } else {
+      // Fallback to local file system
+      const fs = require('fs');
+      if (fs.existsSync(document.storage_path)) {
+        res.download(document.storage_path, document.original_filename);
+      } else {
+        res.status(404).json({
+          error: 'Document file not found',
+          message: 'The document file is not available. It may need to be uploaded to IBM Cloud Object Storage.'
+        });
+      }
+    }
   } catch (error) {
+    console.error('Document download error:', error);
     res.status(404).json({ error: error.message });
   }
 });

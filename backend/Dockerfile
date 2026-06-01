@@ -13,6 +13,7 @@ RUN npm ci --only=production
 # Copy application files (excluding data directory - will use PVC)
 COPY package*.json ./
 COPY src ./src
+COPY scripts ./scripts
 COPY server.js ./
 
 # Expose port

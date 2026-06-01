@@ -20,20 +20,13 @@ const { authenticate, authorize } = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const ibmCosService = require('../services/ibmCosService');
 
 /**
  * Configure multer for file uploads
- * Stores files in data/uploads directory with unique names
+ * Uses memory storage to upload directly to IBM COS
  */
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../../data/uploads'));
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${uuidv4()}-${file.originalname}`;
-    cb(null, uniqueName);
-  }
-});
+const storage = multer.memoryStorage();
 
 /**
  * Multer upload configuration
@@ -313,6 +306,26 @@ router.post('/:id/documents', authenticate, upload.single('file'), async (req, r
       return res.status(400).json({ error: 'Document type is required' });
     }
 
+    // Generate unique filename for COS
+    const uniqueFilename = `${uuidv4()}-${req.file.originalname}`;
+    const cosKey = `documents/${uniqueFilename}`;
+
+    // Upload to IBM COS if configured
+    let uploadedToCos = false;
+    if (ibmCosService.isConfigured()) {
+      try {
+        await ibmCosService.uploadBuffer(cosKey, req.file.buffer, req.file.mimetype);
+        uploadedToCos = true;
+        console.log(`File uploaded to COS: ${cosKey}`);
+      } catch (cosError) {
+        console.error('Failed to upload to COS:', cosError);
+        return res.status(500).json({
+          error: 'Failed to upload document to cloud storage',
+          message: cosError.message
+        });
+      }
+    }
+
     // Mock extract fields
     const extractedFields = documentService.mockExtractFields(doc_type, req.file.originalname);
 
@@ -320,9 +333,10 @@ router.post('/:id/documents', authenticate, upload.single('file'), async (req, r
       {
         application_id: req.params.id,
         doc_type,
-        filename: req.file.filename,
+        filename: uniqueFilename,
         original_filename: req.file.originalname,
-        storage_path: req.file.path,
+        storage_path: uploadedToCos ? null : `/data/uploads/${uniqueFilename}`,
+        cos_key: uploadedToCos ? cosKey : null,
         file_size: req.file.size,
         mime_type: req.file.mimetype,
         extracted_fields: extractedFields
@@ -333,6 +347,7 @@ router.post('/:id/documents', authenticate, upload.single('file'), async (req, r
 
     res.status(201).json(document);
   } catch (error) {
+    console.error('Document upload error:', error);
     res.status(500).json({ error: error.message });
   }
 });

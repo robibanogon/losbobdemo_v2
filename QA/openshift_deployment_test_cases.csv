@@ -1,0 +1,135 @@
+Test ID,Category,Test Case,Priority,Steps,Expected Result,Status,Actual Result,Notes,Timestamp
+OCP-001,Infrastructure,Verify Backend Pod Running,Critical,"1. Run: oc get pods -n los-demo-v1
+2. Check los-backend pod status",Backend pod should be in Running state with 1/1 READY,PASS,Backend pod los-backend-65877f9b6f-4sc6l is Running (1/1),Pod successfully started after scaling down old replica set,2026-05-31T11:01:00Z
+OCP-002,Infrastructure,Verify Frontend Pods Running,Critical,"1. Run: oc get pods -n los-demo-v1
+2. Check los-frontend pod status",Frontend pods should be in Running state with 2/2 replicas,PASS,Both frontend pods running (2/2): los-frontend-f9d4576b5-kpflv and los-frontend-f9d4576b5-nx2jt,High availability configuration working,2026-05-31T11:01:00Z
+OCP-003,Infrastructure,Verify PVC Bound,Critical,"1. Run: oc get pvc -n los-demo-v1
+2. Check los-data-pvc status",PVC should be in Bound state with ocs-storagecluster-ceph-rbd storage class,PENDING,Not yet verified,Need to verify PVC binding,
+OCP-004,Infrastructure,Verify Services Created,High,"1. Run: oc get svc -n los-demo-v1
+2. Verify los-backend and los-frontend services exist",Both services should exist with correct ports (3001 and 8080),PENDING,Not yet verified,Need to verify service configuration,
+OCP-005,Infrastructure,Verify Routes Created,High,"1. Run: oc get routes -n los-demo-v1
+2. Check route URLs",Routes should exist with HTTPS edge termination,PASS,"Routes created:
+- Backend: los-backend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com
+- Frontend: los-frontend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com",Routes configured with edge termination,2026-05-31T11:00:00Z
+OCP-006,Infrastructure,Verify ConfigMap Applied,Medium,"1. Run: oc get configmap -n los-demo-v1
+2. Check los-config exists",ConfigMap should contain API URLs and Watsonx settings,PENDING,Not yet verified,Need to verify ConfigMap data,
+OCP-007,Infrastructure,Verify Secrets Applied,Critical,"1. Run: oc get secrets -n los-demo-v1
+2. Check los-secrets exists",Secret should contain JWT_SECRET and IBM credentials,PENDING,Not yet verified,Need to verify secret data (without exposing values),
+OCP-008,Health Check,Backend Health Endpoint,Critical,"1. curl https://los-backend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com/health
+2. Check response",Should return 200 OK with status: healthy,PENDING,Not yet tested,Need to test external route,
+OCP-009,Health Check,Frontend Accessibility,Critical,"1. Open browser to https://los-frontend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com
+2. Check page loads",Frontend should load without errors,PENDING,Not yet tested,Need to test in browser,
+OCP-010,Authentication,Login with RM User,Critical,"1. Navigate to frontend URL
+2. Login with rm1/password123
+3. Verify dashboard access",Should successfully login and show RM dashboard,PENDING,Not yet tested,Test user authentication flow,
+OCP-011,Authentication,Login with Analyst User,High,"1. Navigate to frontend URL
+2. Login with analyst1/password123
+3. Verify analyst dashboard access",Should successfully login and show Analyst dashboard,PENDING,Not yet tested,Test analyst role access,
+OCP-012,Authentication,Login with Approver User,High,"1. Navigate to frontend URL
+2. Login with approver1/password123
+3. Verify approver dashboard access",Should successfully login and show Approver dashboard,PENDING,Not yet tested,Test approver role access,
+OCP-013,Authentication,Login with Admin User,High,"1. Navigate to frontend URL
+2. Login with admin/admin123
+3. Verify admin dashboard access",Should successfully login and show Admin dashboard,PENDING,Not yet tested,Test admin role access,
+OCP-014,API,Get Applications List,High,"1. Login as analyst1
+2. curl -H ""Authorization: Bearer <token>"" https://los-backend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com/api/applications
+3. Check response",Should return list of applications in JSON format,PENDING,Not yet tested,Test API endpoint through route,
+OCP-015,API,Get Documents List,High,"1. Login as analyst1
+2. curl -H ""Authorization: Bearer <token>"" https://los-backend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com/api/documents
+3. Check response",Should return list of documents in JSON format,PENDING,Not yet tested,Test document API endpoint,
+OCP-016,API,Get Audit Logs,Medium,"1. Login as admin
+2. curl -H ""Authorization: Bearer <token>"" https://los-backend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com/api/audit
+3. Check response",Should return audit log entries,PENDING,Not yet tested,Test audit API endpoint,
+OCP-017,Storage,Verify Data Persistence,Critical,"1. Create test application via API
+2. Restart backend pod: oc delete pod <backend-pod> -n los-demo-v1
+3. Wait for new pod to start
+4. Query applications again",Created application should still exist after pod restart,PENDING,Not yet tested,Test PVC data persistence,
+OCP-018,Storage,Verify Document Upload,High,"1. Login to frontend
+2. Navigate to document upload
+3. Upload a test document
+4. Verify document appears in list",Document should be uploaded and stored successfully,PENDING,Not yet tested,Test document storage functionality,
+OCP-019,Watsonx Integration,Document Analysis,High,"1. Login as analyst1
+2. Select a document
+3. Trigger document analysis
+4. Check analysis results",Should successfully analyze document using Watsonx.ai,PENDING,Not yet tested,Test Watsonx.ai integration from OpenShift,
+OCP-020,Watsonx Integration,Credit Memo Generation,High,"1. Login as analyst1
+2. Navigate to application
+3. Generate credit memo
+4. Verify memo content",Should generate credit memo using Watsonx.ai,PENDING,Not yet tested,Test credit memo generation,
+OCP-021,IBM COS Integration,Document Storage,High,"1. Upload document via frontend
+2. Check IBM COS bucket
+3. Verify document exists in COS",Document should be stored in IBM Cloud Object Storage,PENDING,Not yet tested,Test IBM COS integration,
+OCP-022,IBM COS Integration,Document Retrieval,High,"1. Request document from API
+2. Verify document is retrieved from COS
+3. Check document content",Document should be retrieved from IBM COS successfully,PENDING,Not yet tested,Test document retrieval from COS,
+OCP-023,Performance,Backend Response Time,Medium,"1. Run multiple API requests
+2. Measure response times
+3. Calculate average",Average response time should be < 2 seconds,PENDING,Not yet tested,Test API performance,
+OCP-024,Performance,Frontend Load Time,Medium,"1. Open frontend in browser
+2. Measure page load time
+3. Check for performance issues",Page should load in < 3 seconds,PENDING,Not yet tested,Test frontend performance,
+OCP-025,Security,HTTPS Enforcement,Critical,"1. Try to access http://los-frontend-los-demo-v1.apps.itz-h3g1a8.infra01-lb.syd05.techzone.ibm.com
+2. Verify redirect to HTTPS",Should automatically redirect to HTTPS,PENDING,Not yet tested,Test route security configuration,
+OCP-026,Security,JWT Token Validation,Critical,"1. Make API request without token
+2. Make request with invalid token
+3. Make request with valid token",Should reject requests without valid JWT token,PENDING,Not yet tested,Test authentication security,
+OCP-027,Security,Role-Based Access Control,High,"1. Login as RM user
+2. Try to access admin endpoints
+3. Verify access denied",Should enforce role-based access control,PENDING,Not yet tested,Test RBAC implementation,
+OCP-028,Scalability,Frontend Horizontal Scaling,Medium,"1. Scale frontend: oc scale deployment los-frontend --replicas=3 -n los-demo-v1
+2. Verify all pods running
+3. Test load distribution",Should scale to 3 replicas and distribute load,PENDING,Not yet tested,Test horizontal pod autoscaling,
+OCP-029,Scalability,Backend Vertical Scaling,Low,"1. Update resource limits in deployment
+2. Apply changes
+3. Verify pod restarts with new limits",Should apply new resource limits successfully,PENDING,Not yet tested,Test resource limit updates,
+OCP-030,Monitoring,Pod Logs Accessibility,Medium,"1. Run: oc logs <backend-pod> -n los-demo-v1
+2. Verify logs are readable
+3. Check for errors",Should display application logs without errors,PASS,Backend logs show successful startup and health check requests,Logs accessible via oc logs command,2026-05-31T11:01:00Z
+OCP-031,Monitoring,Resource Usage,Medium,"1. Run: oc adm top pods -n los-demo-v1
+2. Check CPU and memory usage
+3. Compare with limits",Resource usage should be within defined limits,PENDING,Not yet tested,Monitor resource consumption,
+OCP-032,Disaster Recovery,Pod Auto-Recovery,High,"1. Delete backend pod: oc delete pod <backend-pod> -n los-demo-v1
+2. Wait for automatic recreation
+3. Verify new pod is running",Kubernetes should automatically recreate the pod,PENDING,Not yet tested,Test pod self-healing,
+OCP-033,Disaster Recovery,Data Backup Verification,Medium,"1. Check PVC snapshots
+2. Verify backup configuration
+3. Test restore procedure",Should have backup mechanism for persistent data,PENDING,Not yet tested,Verify backup strategy,
+OCP-034,Configuration,Environment Variables,High,"1. Check pod environment variables
+2. Verify API URLs point to correct services
+3. Check Watsonx configuration",All environment variables should be correctly set,PENDING,Not yet tested,Verify ConfigMap and Secret injection,
+OCP-035,Configuration,Service Discovery,High,"1. From backend pod, resolve frontend service
+2. From frontend pod, resolve backend service
+3. Verify DNS resolution",Services should be discoverable via internal DNS,PENDING,Not yet tested,Test Kubernetes service discovery,
+OCP-036,Networking,Internal Service Communication,Critical,"1. Exec into frontend pod
+2. curl http://los-backend:3001/health
+3. Verify response",Frontend should be able to communicate with backend internally,PENDING,Not yet tested,Test internal service networking,
+OCP-037,Networking,External Route Access,Critical,"1. Access frontend route from external network
+2. Verify page loads
+3. Test API calls through route",External users should be able to access the application,PENDING,Not yet tested,Test external access through routes,
+OCP-038,User Workflow,Complete Application Submission,High,"1. Login as RM
+2. Create new application
+3. Upload documents
+4. Submit for review",Should complete full application submission workflow,PENDING,Not yet tested,End-to-end workflow test,
+OCP-039,User Workflow,Document Analysis Workflow,High,"1. Login as analyst
+2. Select application
+3. Analyze documents
+4. Generate credit memo",Should complete document analysis workflow,PENDING,Not yet tested,Test analyst workflow,
+OCP-040,User Workflow,Approval Workflow,High,"1. Login as approver
+2. Review application
+3. Approve or reject
+4. Verify status update",Should complete approval workflow,PENDING,Not yet tested,Test approver workflow,
+OCP-041,Error Handling,Invalid Login Credentials,Medium,"1. Try to login with invalid credentials
+2. Verify error message
+3. Check no unauthorized access",Should display appropriate error message,PENDING,Not yet tested,Test error handling,
+OCP-042,Error Handling,API Error Responses,Medium,"1. Make invalid API requests
+2. Check error responses
+3. Verify proper HTTP status codes",Should return appropriate error codes and messages,PENDING,Not yet tested,Test API error handling,
+OCP-043,Compliance,Audit Log Recording,High,"1. Perform various actions
+2. Check audit logs
+3. Verify all actions are logged",All user actions should be recorded in audit log,PENDING,Not yet tested,Test audit logging,
+OCP-044,Compliance,Data Privacy,High,"1. Check document access controls
+2. Verify user can only see authorized documents
+3. Test cross-user access",Should enforce document access controls,PENDING,Not yet tested,Test data privacy controls,
+OCP-045,Integration,End-to-End Integration Test,Critical,"1. Complete full loan application process
+2. From submission to approval
+3. Verify all integrations work",All system components should work together seamlessly,PENDING,Not yet tested,Comprehensive integration test,

@@ -67,6 +67,7 @@ class DocumentService {
       filename: documentData.filename,
       original_filename: documentData.original_filename,
       storage_path: documentData.storage_path,
+      cos_key: documentData.cos_key || null,
       file_size: documentData.file_size,
       mime_type: documentData.mime_type,
       uploaded_by: userId,
