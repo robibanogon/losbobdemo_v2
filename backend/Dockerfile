@@ -8,7 +8,8 @@ WORKDIR /opt/app-root/src
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+# Use npm install instead of npm ci for better compatibility with OpenShift builds
+RUN npm install --only=production && npm cache clean --force
 
 # Copy application files (excluding data directory - will use PVC)
 COPY package*.json ./

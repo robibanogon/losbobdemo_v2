@@ -75,17 +75,75 @@ jobs:
           echo "Creating PVC if not exists..."
           oc apply -f openshift/persistent-volume-claim.yaml
 
+      - name: Validate Build Context
+        run: |
+          echo "Validating build context..."
+          
+          # Check Dockerfiles exist
+          if [ ! -f "backend/Dockerfile" ]; then
+            echo "Error: backend/Dockerfile not found"
+            exit 1
+          fi
+          
+          if [ ! -f "frontend/Dockerfile" ]; then
+            echo "Error: frontend/Dockerfile not found"
+            exit 1
+          fi
+          
+          # Check package.json files exist
+          if [ ! -f "backend/package.json" ]; then
+            echo "Error: backend/package.json not found"
+            exit 1
+          fi
+          
+          if [ ! -f "frontend/package.json" ]; then
+            echo "Error: frontend/package.json not found"
+            exit 1
+          fi
+          
+          echo "✓ Build context validation passed"
+
       - name: Build Backend Image
         run: |
           echo "Building backend image..."
-          oc new-build --name=los-backend --binary --strategy=docker --to=los-backend:latest || true
-          oc start-build los-backend --from-dir=./backend --follow --wait
+          
+          # Ensure build config exists
+          oc new-build --name=los-backend --binary --strategy=docker --to=los-backend:latest 2>/dev/null || true
+          
+          # Start build with timeout and error handling
+          echo "Starting build from ./backend directory..."
+          if ! timeout 600 oc start-build los-backend --from-dir=./backend --follow --wait; then
+            echo "❌ Build failed or timed out!"
+            BUILD_NAME=$(oc get builds -l buildconfig=los-backend --sort-by=.metadata.creationTimestamp -o jsonpath='{.items[-1].metadata.name}' 2>/dev/null || echo "unknown")
+            if [ "$BUILD_NAME" != "unknown" ]; then
+              echo "Fetching logs for build: $BUILD_NAME"
+              oc logs build/$BUILD_NAME || echo "Could not fetch build logs"
+            fi
+            exit 1
+          fi
+          
+          echo "✓ Backend image built successfully"
 
       - name: Build Frontend Image
         run: |
           echo "Building frontend image..."
-          oc new-build --name=los-frontend --binary --strategy=docker --to=los-frontend:latest || true
-          oc start-build los-frontend --from-dir=./frontend --follow --wait
+          
+          # Ensure build config exists
+          oc new-build --name=los-frontend --binary --strategy=docker --to=los-frontend:latest 2>/dev/null || true
+          
+          # Start build with timeout and error handling
+          echo "Starting build from ./frontend directory..."
+          if ! timeout 600 oc start-build los-frontend --from-dir=./frontend --follow --wait; then
+            echo "❌ Build failed or timed out!"
+            BUILD_NAME=$(oc get builds -l buildconfig=los-frontend --sort-by=.metadata.creationTimestamp -o jsonpath='{.items[-1].metadata.name}' 2>/dev/null || echo "unknown")
+            if [ "$BUILD_NAME" != "unknown" ]; then
+              echo "Fetching logs for build: $BUILD_NAME"
+              oc logs build/$BUILD_NAME || echo "Could not fetch build logs"
+            fi
+            exit 1
+          fi
+          
+          echo "✓ Frontend image built successfully"
 
       - name: Tag Images
         run: |
