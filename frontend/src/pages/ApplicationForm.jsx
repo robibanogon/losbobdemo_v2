@@ -156,33 +156,33 @@ const ApplicationForm = () => {
     try {
       setLoading(true);
       
-      // Transform form data to API format
+      // Transform form data to API format (backend expects snake_case)
       const applicationData = {
         applicant: {
-          legalName: formData.applicantName,
-          businessType: formData.businessType,
+          legal_name: formData.applicantName,
+          business_type: formData.businessType,
           industry: formData.industry,
-          yearsInBusiness: parseInt(formData.yearsInBusiness) || 0
+          years_in_business: parseInt(formData.yearsInBusiness) || 0
         },
-        loan: {
+        loan_request: {
           amount: parseFloat(formData.loanAmount.replace(/,/g, '')) || 0,
-          tenor: parseInt(formData.tenor) || 0,
+          tenor_months: parseInt(formData.tenor) || 0,
           purpose: formData.purpose,
-          repaymentType: formData.repaymentType
+          repayment_type: formData.repaymentType
         },
-        financial: {
-          monthlyRevenue: parseFloat(formData.monthlyRevenue.replace(/,/g, '')) || 0,
-          monthlyExpenses: parseFloat(formData.monthlyExpenses.replace(/,/g, '')) || 0,
-          existingDebtPayment: parseFloat(formData.existingDebtPayment.replace(/,/g, '')) || 0
+        financial_snapshot: {
+          monthly_revenue: parseFloat(formData.monthlyRevenue.replace(/,/g, '')) || 0,
+          monthly_expenses: parseFloat(formData.monthlyExpenses.replace(/,/g, '')) || 0,
+          existing_debt_payment: parseFloat(formData.existingDebtPayment.replace(/,/g, '')) || 0
         },
         collateral: {
           type: formData.collateralType,
-          estimatedValue: parseFloat(formData.collateralValue.replace(/,/g, '')) || 0
+          estimated_value: parseFloat(formData.collateralValue.replace(/,/g, '')) || 0
         },
-        owner: {
+        owner_info: {
           name: formData.ownerName,
-          idNumber: formData.ownerIdNumber,
-          creditScore: parseInt(formData.creditScore) || 0
+          id_number: formData.ownerIdNumber,
+          credit_score: parseInt(formData.creditScore) || 0
         }
       };
 

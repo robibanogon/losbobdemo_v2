@@ -1,0 +1,78 @@
+name: Cleanup OpenShift Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_cleanup:
+        description: 'Type "DELETE" to confirm cleanup'
+        required: true
+        type: string
+      cleanup_scope:
+        description: 'Cleanup scope'
+        required: true
+        default: 'deployments'
+        type: choice
+        options:
+          - deployments
+          - all-resources
+          - project
+
+env:
+  OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+  OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  OPENSHIFT_PROJECT: ${{ secrets.OPENSHIFT_PROJECT || 'los-demo-v1' }}
+
+jobs:
+  cleanup:
+    name: Cleanup OpenShift Resources
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm_cleanup == 'DELETE'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install OpenShift CLI
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: 4.14
+
+      - name: Authenticate to OpenShift
+        run: |
+          oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }} --insecure-skip-tls-verify=true
+          oc project ${{ env.OPENSHIFT_PROJECT }}
+
+      - name: Cleanup Deployments Only
+        if: github.event.inputs.cleanup_scope == 'deployments'
+        run: |
+          echo "Deleting deployments..."
+          oc delete deployment los-backend los-frontend || true
+          echo "Deployments deleted"
+
+      - name: Cleanup All Resources
+        if: github.event.inputs.cleanup_scope == 'all-resources'
+        run: |
+          echo "Deleting all application resources..."
+          oc delete all -l app.kubernetes.io/part-of=loan-origination-system || true
+          oc delete pvc los-data-pvc || true
+          oc delete configmap los-config || true
+          oc delete secret los-secrets || true
+          echo "All resources deleted"
+
+      - name: Delete Project
+        if: github.event.inputs.cleanup_scope == 'project'
+        run: |
+          echo "Deleting entire project..."
+          oc delete project ${{ env.OPENSHIFT_PROJECT }}
+          echo "Project deleted"
+
+      - name: Cleanup Summary
+        if: always()
+        run: |
+          echo "## Cleanup Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Scope:** ${{ github.event.inputs.cleanup_scope }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Project:** ${{ env.OPENSHIFT_PROJECT }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** Completed" >> $GITHUB_STEP_SUMMARY
+
+# Made with Bob

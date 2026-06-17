@@ -19,6 +19,28 @@ A comprehensive web application for processing SME loan applications in the Phil
 - **npm** or **yarn**
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
+## 🚢 Deployment
+
+### OpenShift Deployment with GitHub Actions
+
+This project includes automated CI/CD workflows for deploying to Red Hat OpenShift:
+
+- **Automated Deployments**: Push to `main` or `develop` branches triggers automatic deployment
+- **Manual Deployments**: Deploy on-demand to any environment
+- **Automatic Rollback**: Failed deployments automatically roll back
+- **Environment Management**: Separate configurations for development, staging, and production
+
+**Quick Setup:**
+1. Follow the [GitHub Actions Setup Guide](.github/SETUP_GUIDE.md)
+2. Configure required secrets in GitHub repository settings
+3. Push to `main` or `develop` branch to trigger deployment
+
+**Documentation:**
+- [GitHub Actions Setup Guide](.github/SETUP_GUIDE.md) - Complete setup instructions
+- [Workflows Documentation](.github/workflows/README.md) - Workflow details and usage
+- [Secrets Template](.github/secrets.template.md) - GitHub secrets configuration
+- [OpenShift Deployment Guide](OPENSHIFT_DEPLOYMENT.md) - Manual deployment instructions
+
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository

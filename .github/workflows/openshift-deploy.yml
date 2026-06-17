@@ -1,0 +1,208 @@
+name: Deploy to OpenShift
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+env:
+  OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+  OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  OPENSHIFT_PROJECT: ${{ secrets.OPENSHIFT_PROJECT || 'los-demo-v1' }}
+  REGISTRY: image-registry.openshift-image-registry.svc:5000
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy to OpenShift
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production') || 'development' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install OpenShift CLI
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: 4.14
+
+      - name: Authenticate to OpenShift
+        run: |
+          oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }} --insecure-skip-tls-verify=true
+          oc project ${{ env.OPENSHIFT_PROJECT }} || oc new-project ${{ env.OPENSHIFT_PROJECT }}
+
+      - name: Verify OpenShift connection
+        run: |
+          echo "Connected to OpenShift cluster"
+          oc whoami
+          oc version
+          oc project
+
+      - name: Create/Update ConfigMap
+        run: |
+          echo "Applying ConfigMap..."
+          oc apply -f openshift/configmap.yaml
+
+      - name: Create/Update Secrets
+        run: |
+          echo "Creating secrets from GitHub secrets..."
+          oc create secret generic los-secrets \
+            --from-literal=jwt-secret="${{ secrets.JWT_SECRET }}" \
+            --from-literal=watsonx-api-key="${{ secrets.WATSONX_API_KEY }}" \
+            --from-literal=watsonx-project-id="${{ secrets.WATSONX_PROJECT_ID }}" \
+            --from-literal=ibm-cos-api-key="${{ secrets.IBM_COS_API_KEY }}" \
+            --from-literal=ibm-cos-instance-id="${{ secrets.IBM_COS_INSTANCE_ID }}" \
+            --dry-run=client -o yaml | oc apply -f -
+
+      - name: Create Persistent Volume Claim
+        run: |
+          echo "Creating PVC if not exists..."
+          oc apply -f openshift/persistent-volume-claim.yaml
+
+      - name: Build Backend Image
+        run: |
+          echo "Building backend image..."
+          oc new-build --name=los-backend --binary --strategy=docker --to=los-backend:latest || true
+          oc start-build los-backend --from-dir=./backend --follow --wait
+
+      - name: Build Frontend Image
+        run: |
+          echo "Building frontend image..."
+          oc new-build --name=los-frontend --binary --strategy=docker --to=los-frontend:latest || true
+          oc start-build los-frontend --from-dir=./frontend --follow --wait
+
+      - name: Tag Images
+        run: |
+          # Tag with git commit SHA for traceability
+          oc tag los-backend:latest los-backend:${{ github.sha }}
+          oc tag los-frontend:latest los-frontend:${{ github.sha }}
+          
+          # Tag with environment
+          ENV_TAG="${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production') || 'development' }}"
+          oc tag los-backend:latest los-backend:${ENV_TAG}
+          oc tag los-frontend:latest los-frontend:${ENV_TAG}
+
+      - name: Deploy Backend
+        run: |
+          echo "Deploying backend..."
+          oc apply -f openshift/backend-deployment.yaml
+          oc rollout status deployment/los-backend --timeout=5m
+
+      - name: Deploy Frontend
+        run: |
+          echo "Deploying frontend..."
+          oc apply -f openshift/frontend-deployment.yaml
+          oc rollout status deployment/los-frontend --timeout=5m
+
+      - name: Create/Update Services
+        run: |
+          echo "Creating services..."
+          oc apply -f openshift/services.yaml
+
+      - name: Create/Update Routes
+        run: |
+          echo "Creating routes..."
+          oc apply -f openshift/routes.yaml
+
+      - name: Initialize Application Data
+        if: github.event.inputs.environment == 'development' || github.ref == 'refs/heads/develop'
+        run: |
+          echo "Initializing application data..."
+          BACKEND_POD=$(oc get pods -l app=los-backend -o jsonpath='{.items[0].metadata.name}')
+          oc exec ${BACKEND_POD} -- npm run seed || echo "Seed data already exists or failed"
+
+      - name: Verify Deployment
+        run: |
+          echo "Verifying deployment..."
+          oc get pods
+          oc get services
+          oc get routes
+          
+          # Get route URLs
+          FRONTEND_URL=$(oc get route los-frontend -o jsonpath='{.spec.host}')
+          BACKEND_URL=$(oc get route los-backend -o jsonpath='{.spec.host}')
+          
+          echo "Frontend URL: https://${FRONTEND_URL}"
+          echo "Backend URL: https://${BACKEND_URL}"
+          
+          # Health check
+          echo "Checking backend health..."
+          curl -f -k https://${BACKEND_URL}/health || echo "Health check failed"
+
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production') || 'development' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          FRONTEND_URL=$(oc get route los-frontend -o jsonpath='{.spec.host}' 2>/dev/null || echo "N/A")
+          BACKEND_URL=$(oc get route los-backend -o jsonpath='{.spec.host}' 2>/dev/null || echo "N/A")
+          
+          echo "### Access URLs" >> $GITHUB_STEP_SUMMARY
+          echo "- **Frontend:** https://${FRONTEND_URL}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backend:** https://${BACKEND_URL}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "### Pod Status" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          oc get pods 2>/dev/null || echo "Unable to fetch pod status" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+  rollback:
+    name: Rollback Deployment
+    runs-on: ubuntu-latest
+    if: failure() && github.event_name == 'push'
+    needs: build-and-deploy
+    
+    steps:
+      - name: Install OpenShift CLI
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: 4.14
+
+      - name: Authenticate to OpenShift
+        run: |
+          oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }} --insecure-skip-tls-verify=true
+          oc project ${{ env.OPENSHIFT_PROJECT }}
+
+      - name: Rollback Deployments
+        run: |
+          echo "Rolling back deployments..."
+          oc rollout undo deployment/los-backend
+          oc rollout undo deployment/los-frontend
+          
+          echo "Waiting for rollback to complete..."
+          oc rollout status deployment/los-backend --timeout=5m
+          oc rollout status deployment/los-frontend --timeout=5m
+          
+          echo "Rollback completed"
+
+      - name: Notify Rollback
+        run: |
+          echo "## ⚠️ Deployment Rollback" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Deployment failed and was automatically rolled back." >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+
+# Made with Bob

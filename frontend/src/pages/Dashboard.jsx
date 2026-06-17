@@ -217,7 +217,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {recentApplications.map((app) => (
-                  <tr key={app.id}>
+                  <tr key={app.id} onClick={() => window.location.href = `/applications/${app.id}`} style={{ cursor: 'pointer' }}>
                     <td style={{ fontWeight: '500', color: '#667eea' }}>
                       {app.application_number}
                     </td>
@@ -235,6 +235,7 @@ const Dashboard = () => {
                       <Link
                         to={`/applications/${app.id}`}
                         className="btn btn-sm btn-outline"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         View
                       </Link>

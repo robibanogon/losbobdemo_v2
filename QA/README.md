@@ -80,7 +80,7 @@ npm run dev
 
 ---
 
-## 📋 Testing Phases
+## � Testing Phases
 
 ### ✅ Completed (62 tests)
 
